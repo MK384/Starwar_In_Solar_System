@@ -176,10 +176,12 @@ namespace ComputerGraphics
             Vector3 specularColor = new Vector3(1.0f);
             
             objShader.SetVector3("light.position", new Vector3(0.0f, 0.0f, 0.0f));
+            
             // light strength
-            objShader.SetVector3("light.ambient", ambientColor);
-            objShader.SetVector3("light.diffuse", diffuseColor);
-            objShader.SetVector3("light.specular", specularColor);
+            // objShader.SetVector3("light.ambient", ambientColor);
+            // objShader.SetVector3("light.diffuse", diffuseColor);
+            // objShader.SetVector3("light.specular", specularColor);
+            
             // light attenuation
             objShader.SetFloat("light.constant", 1.0f);
             objShader.SetFloat("light.linear", 0.000002f);

@@ -11,8 +11,8 @@ struct Material {
 //The light contains all the values from the light source, how the ambient diffuse and specular values are from the light source.
 //This is technically what we were using in the last episode as we were only applying the phong model directly to the light.
 struct Light {
+    
     vec3 position;
-    //vec3 direction;
     vec3 ambient;
     vec3 diffuse;
     vec3 specular;
@@ -20,6 +20,8 @@ struct Light {
     float constant;
     float linear;
     float quadratic;
+    
+    vec3 anything;
 };
 //We create the light and the material struct as uniforms.
 uniform Light light;
@@ -49,8 +51,9 @@ void main()
 //    vec3 light_specular = light.specular * attenuation;
     
     //ambient
+//    vec4 ambient = (light.ambient, 1) * material_ambient; //Remember to use the material here.
     vec4 ambient = (light.ambient, 1) * material_ambient; //Remember to use the material here.
-
+    
     //diffuse 
     vec3 norm = normalize(Normal);
     vec3 lightDir = normalize(light.position - FragPos);

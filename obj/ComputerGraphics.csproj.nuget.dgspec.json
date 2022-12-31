@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\ziad\\Desktop\\22222\\ComputerGraphicsOpenTK(2)\\ComputerGraphics\\ComputerGraphics.csproj": {}
+    "E:\\ComputerGraphicsOpenTK(3)\\ComputerGraphicsOpenTK(2)\\ComputerGraphics\\ComputerGraphics.csproj": {}
   },
   "projects": {
-    "C:\\Users\\ziad\\Desktop\\22222\\ComputerGraphicsOpenTK(2)\\ComputerGraphics\\ComputerGraphics.csproj": {
+    "E:\\ComputerGraphicsOpenTK(3)\\ComputerGraphicsOpenTK(2)\\ComputerGraphics\\ComputerGraphics.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ziad\\Desktop\\22222\\ComputerGraphicsOpenTK(2)\\ComputerGraphics\\ComputerGraphics.csproj",
+        "projectUniqueName": "E:\\ComputerGraphicsOpenTK(3)\\ComputerGraphicsOpenTK(2)\\ComputerGraphics\\ComputerGraphics.csproj",
         "projectName": "ComputerGraphics",
-        "projectPath": "C:\\Users\\ziad\\Desktop\\22222\\ComputerGraphicsOpenTK(2)\\ComputerGraphics\\ComputerGraphics.csproj",
-        "packagesPath": "C:\\Users\\ziad\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ziad\\Desktop\\22222\\ComputerGraphicsOpenTK(2)\\ComputerGraphics\\obj\\",
+        "projectPath": "E:\\ComputerGraphicsOpenTK(3)\\ComputerGraphicsOpenTK(2)\\ComputerGraphics\\ComputerGraphics.csproj",
+        "packagesPath": "C:\\Users\\moham\\.nuget\\packages\\",
+        "outputPath": "E:\\ComputerGraphicsOpenTK(3)\\ComputerGraphicsOpenTK(2)\\ComputerGraphics\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\ziad\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\moham\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
@@ -57,11 +57,28 @@
             "net47",
             "net471",
             "net472",
-            "net48",
-            "net481"
+            "net48"
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[3.1.10, 3.1.10]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Host.win-x64",
+              "version": "[3.1.19, 3.1.19]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[3.1.0, 3.1.0]"
+            },
+            {
+              "name": "Microsoft.WindowsDesktop.App.Ref",
+              "version": "[3.1.0, 3.1.0]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
@@ -70,7 +87,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.402\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.401\\RuntimeIdentifierGraph.json"
         }
       }
     }
