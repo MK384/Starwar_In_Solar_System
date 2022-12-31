@@ -1,0 +1,42 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="shader.frag" />
+    <None Remove="shader.vert" />
+    <None Update="OpenGL\dark_shader.frag">
+      <DependentUpon>Shader.cs</DependentUpon>
+    </None>
+    <None Update="OpenGL\lumin_shader.frag">
+      <DependentUpon>Shader.cs</DependentUpon>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="OpenGL\vert_shader.vert">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <DependentUpon>shader.cs</DependentUpon>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="OpenTK" Version="4.3.0" />
+    <PackageReference Include="SixLabors.ImageSharp" Version="2.1.3" />
+    <PackageReference Include="StbImageSharp" Version="2.27.13" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="OpenGL">
+      <HintPath>Libs\OpenGL.dll</HintPath>
+    </Reference>
+    <Reference Include="ShadowEngine">
+      <HintPath>Libs\ShadowEngine.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>
