@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "cdD6RDndbdXGH/g0PJ040OyKb99Zq/kDise/i9VHWujVDTT89yt4pxrEW3W2cHmag83b78P6tqJwZGIDyKhs7A==",
+  "dgSpecHash": "+vnlKDnbWVXxZIMETGGAM3TIq4VzRVN7egUaXo68+OzmjsNAeGNThiYv43uEi9wpOtOu7oFrWRhMcgAfOsOl3A==",
   "success": true,
-  "projectFilePath": "E:\\ComputerGraphicsOpenTK(3)\\ComputerGraphicsOpenTK(2)\\ComputerGraphics\\ComputerGraphics.csproj",
+  "projectFilePath": "E:\\Starwar_In_Solar_System\\ComputerGraphics.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\moham\\.nuget\\packages\\microsoft.netcore.platforms\\5.0.0\\microsoft.netcore.platforms.5.0.0.nupkg.sha512",
     "C:\\Users\\moham\\.nuget\\packages\\opentk\\4.3.0\\opentk.4.3.0.nupkg.sha512",

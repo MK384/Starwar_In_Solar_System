@@ -544,11 +544,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\ComputerGraphicsOpenTK(3)\\ComputerGraphicsOpenTK(2)\\ComputerGraphics\\ComputerGraphics.csproj",
+      "projectUniqueName": "E:\\Starwar_In_Solar_System\\ComputerGraphics.csproj",
       "projectName": "ComputerGraphics",
-      "projectPath": "E:\\ComputerGraphicsOpenTK(3)\\ComputerGraphicsOpenTK(2)\\ComputerGraphics\\ComputerGraphics.csproj",
+      "projectPath": "E:\\Starwar_In_Solar_System\\ComputerGraphics.csproj",
       "packagesPath": "C:\\Users\\moham\\.nuget\\packages\\",
-      "outputPath": "E:\\ComputerGraphicsOpenTK(3)\\ComputerGraphicsOpenTK(2)\\ComputerGraphics\\obj\\",
+      "outputPath": "E:\\Starwar_In_Solar_System\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\moham\\AppData\\Roaming\\NuGet\\NuGet.Config"

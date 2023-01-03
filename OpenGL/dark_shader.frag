@@ -2,6 +2,7 @@
 //The material is a collection of some values that we talked about in the last tutorial,
 //some crucial elements to the phong model.
 struct Material {
+    
     float ambientStrength;
     float diffuseStrength;
     float specularStrength;
@@ -21,7 +22,6 @@ struct Light {
     float linear;
     float quadratic;
     
-    vec3 anything;
 };
 //We create the light and the material struct as uniforms.
 uniform Light light;
@@ -38,46 +38,29 @@ in vec3 FragPos;
 
 void main()
 {
-    vec4 texColor = texture(texture0, texCoord);
-    vec4 material_ambient = material.ambientStrength * texColor;
-    vec4 material_diffuse = material.diffuseStrength * texColor;
-    vec4 material_specular = material.specularStrength * texColor;
+    vec3 texColor = vec3 ( texture(texture0, texCoord) );
     
+    // attenuation calculation
     float distance = length(light.position - FragPos);
     float attenuation = 1.0 / (light.constant + light.linear * distance + light.quadratic * (distance * distance));
-    
-//    vec3 light_ambient   = light.ambient * attenuation;
-//    vec3 light_diffuse   = light.diffuse * attenuation;
-//    vec3 light_specular = light.specular * attenuation;
+
+    // dirction vectors
+    vec3 lightDir = normalize(light.position - FragPos);
+    vec3 viewDir = normalize(viewPos - FragPos);
+    vec3 reflectDir = normalize(reflect(-lightDir, Normal));
     
     //ambient
-//    vec4 ambient = (light.ambient, 1) * material_ambient; //Remember to use the material here.
-    vec4 ambient = (light.ambient, 1) * material_ambient; //Remember to use the material here.
+    vec3 ambient = material.ambientStrength * light.ambient; //Remember to use the material here.
     
-    //diffuse 
-    vec3 norm = normalize(Normal);
-    vec3 lightDir = normalize(light.position - FragPos);
-    //vec3 lightDir = normalize( - light.direction);
-    float diff = max(dot(norm, lightDir), 0.0);
-    vec4 diffuse = (light.diffuse, 1)* (diff * material_diffuse); //Remember to use the material here.
+    //diffuse
+    float diff = max(dot(Normal, lightDir), 0.0);
+    vec3 diffuse =  (diff * material.diffuseStrength) * light.diffuse ; //Remember to use the material here.
 
     //specular
-    vec3 viewDir = normalize(viewPos - FragPos);
-    vec3 halfwayDir = normalize(lightDir + viewDir);
-    float spec = pow(max(dot(norm, halfwayDir), 0.0), material.shininess);
-    // vec3 reflectDir = reflect(-lightDir, norm);
-    // float spec = pow(max(dot(viewDir, reflectDir), 0.0), material.shininess);
-    vec4 specular = (light.specular, 1) * (spec * material_specular); //Remember to use the material here.
-
-    //Now the result sum has changed a bit, since we now set the objects color in each element, we now dont have to
-    //multiply the light with the object here, instead we do it for each element seperatly. This allows much better control
-    //over how each element is applied to different objects.
-    ambient  *= attenuation;
-    diffuse  *= attenuation;
-    specular *= attenuation;
-
-    vec4 result = ambient + diffuse + specular;
-    FragColor = result;
-    //vec3 result = vec3( ambient + diffuse + specular );
-    //FragColor = vec4( result, 1 );
+    float spec = pow( max(dot(viewDir, reflectDir) , 0.0) , material.shininess);
+    vec3 specular = (spec * material.specularStrength) * light.specular; //Remember to use the material here.
+    
+    // the output is the phong model of lightening  
+    vec3 phong = (ambient + diffuse + specular);
+    FragColor = vec4 ( (phong * texColor) * attenuation, 1);
 }
