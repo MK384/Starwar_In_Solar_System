@@ -23,6 +23,8 @@ namespace ComputerGraphics
     /// </summary>
     public partial class MainWindow : Window
     {
+        
+        
         public MainWindow()
         {
             InitializeComponent();
@@ -42,9 +44,19 @@ namespace ComputerGraphics
                 
             };
             
-           using( SolarSystem system = new SolarSystem(GameWindowSettings.Default ,nws))
+           using( OpenGLWindow ogl = new OpenGLWindow(GameWindowSettings.Default ,nws))
             {
-                system.Run();
+                ogl.AddGraph(new Sun(109.0f));
+                ogl.AddGraph(new Planet(Planet.Planets.Mercury, 40f, new Vector3(0,0,-300), "resources\\Earth_nightmap.jpg")
+                {
+            
+             
+                    _material = new Vector4(2f, 7f, .7f, 2.0f),
+                    _rotaionSpeed = 1f,
+                    _orbitSpeed = -1f
+            
+                });
+                ogl.Run();
             }
         }
 

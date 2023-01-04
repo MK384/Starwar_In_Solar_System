@@ -131,7 +131,7 @@ namespace ComputerGraphics
         {
             // first clear the window with the defined color
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
-
+            
             var timeValue = (float)timer.Elapsed.TotalSeconds;
             // configure the shadowing and illumine
             ConfigurateShadowing(darkObjShader, _camera);
@@ -166,6 +166,9 @@ namespace ComputerGraphics
         
         private void ConfigurateShadowing(Shader objShader , Camera camera)
         {
+            // TODO: Fix the lighting madel
+            
+            
             objShader.Use();
             objShader.SetMatrix4("view", camera.GetViewMatrix());
             objShader.SetMatrix4("projection", camera.GetProjectionMatrix());
