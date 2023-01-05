@@ -17,4 +17,6 @@
 -  weapons models.
 -  window settings.
 
- 
+### The initial scene looks as: 
+
+![05 01 2023_04 06 12_REC](https://user-images.githubusercontent.com/94141150/210685395-133c9fca-0266-4ab0-ad3d-d21b83065fc8.png)
