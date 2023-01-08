@@ -40,7 +40,7 @@ void main()
 {
     vec3 texColor = vec3 ( texture(texture0, texCoord) );
     
-    // attenuation calculation
+    // attenuation factor due to distance of the light source from the object
     float distance = length(light.position - FragPos);
     float attenuation = 1.0 / (light.constant + light.linear * distance + light.quadratic * (distance * distance));
 
@@ -61,6 +61,7 @@ void main()
     vec3 specular = (spec * material.specularStrength) * light.specular; //Remember to use the material here.
     
     // the output is the phong model of lightening  
-    vec3 phong = (ambient + diffuse + specular);
-    FragColor = vec4 ( (phong * texColor) * attenuation, 1);
+    vec3 phong_model = (ambient + diffuse + specular) * texColor;
+    // applying the attenuation that is due to the distance
+    FragColor = vec4 ( phong_model * attenuation, 1);
 }

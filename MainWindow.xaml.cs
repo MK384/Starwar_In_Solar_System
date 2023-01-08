@@ -51,7 +51,7 @@ namespace ComputerGraphics
                 {
             
              
-                    _material = new Vector4(2f, 7f, .7f, 2.0f),
+                    _material = new Vector4(1f, 7f, .7f, 0.1f),
                     _rotaionSpeed = 1f,
                     _orbitSpeed = -1f
             

@@ -166,12 +166,8 @@ namespace ComputerGraphics
         
         private void ConfigurateShadowing(Shader objShader , Camera camera)
         {
-            // TODO: Fix the lighting madel
-            
             
             objShader.Use();
-            objShader.SetMatrix4("view", camera.GetViewMatrix());
-            objShader.SetMatrix4("projection", camera.GetProjectionMatrix());
             objShader.SetVector3("viewPos", camera.Position);
 
             Vector3 ambientColor = new Vector3(1.0f);
