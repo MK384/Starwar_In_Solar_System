@@ -103,7 +103,7 @@ namespace ComputerGraphics.GraphObjects
         
 
         
-        public virtual void OnLoadObject()
+        public void OnLoadObject()
         {
 
             //1- Identify Vertex array Object of this Graph object
@@ -115,14 +115,21 @@ namespace ComputerGraphics.GraphObjects
             GL.BindBuffer(BufferTarget.ArrayBuffer, VertexBufferObject);
             GL.BufferData(BufferTarget.ArrayBuffer, _vertices.Length * sizeof(float), _vertices, BufferUsageHint.StaticDraw);
             
-            //vertecies
+            //    Vertex          Normal       Texture
+            // (Vx , Vy, Vz) , (Nx , Ny, Nz) , (u , v)
+            
+            //set attribute 0 for vertecies
             GL.EnableVertexAttribArray(0);
             GL.VertexAttribPointer(0, 3, VertexAttribPointerType.Float, false, 8 * sizeof(float), 0);
             
-
-            //Enabel texture
+            // set attribute 2 for normal 
             GL.EnableVertexAttribArray(1);
-            GL.VertexAttribPointer(1, 2, VertexAttribPointerType.Float, false, 8 * sizeof(float), 6 * sizeof(float));
+            GL.VertexAttribPointer(1, 3, VertexAttribPointerType.Float, false, 8 * sizeof(float), 3 * sizeof(float));
+
+
+            //set attribute 1 for texture
+            GL.EnableVertexAttribArray(2);
+            GL.VertexAttribPointer(2, 2, VertexAttribPointerType.Float, false, 8 * sizeof(float), 6 * sizeof(float));
 
             
         }

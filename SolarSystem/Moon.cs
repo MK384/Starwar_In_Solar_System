@@ -30,8 +30,8 @@ namespace ComputerGraphics.GraphObjects
         }
         public override void OnRenderFrame(Shader shader , float time)
         {
+            //TODO: Fix the moon orbit rotation
 
-            
             GL.BindVertexArray(VertexArrayObject);
             shader.Use();
             _texture.Use();

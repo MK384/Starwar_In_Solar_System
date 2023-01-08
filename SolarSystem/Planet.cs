@@ -44,35 +44,6 @@ namespace ComputerGraphics.GraphObjects
             _moons = new List<Moon>();
         }
         
-        public override void OnLoadObject()
-        {
-
-            //1- Identify Vertex array Object of this Graph object
-            VertexArrayObject = GL.GenVertexArray();
-            GL.BindVertexArray(VertexArrayObject);
-            
-            //2- Load Vertex Array Buffer of this Object
-            VertexBufferObject = GL.GenBuffer();
-            GL.BindBuffer(BufferTarget.ArrayBuffer, VertexBufferObject);
-            GL.BufferData(BufferTarget.ArrayBuffer, _vertices.Length * sizeof(float), _vertices, BufferUsageHint.StaticDraw);
-       
-
-            //vertecies
-            GL.EnableVertexAttribArray(0);
-            GL.VertexAttribPointer(0, 3, VertexAttribPointerType.Float, false, 8 * sizeof(float), 0);
-           
-
-            //normal
-            GL.EnableVertexAttribArray(2);
-            GL.VertexAttribPointer(2, 3, VertexAttribPointerType.Float, false, 8 * sizeof(float), 3 * sizeof(float));
-            
-
-            //Enabel texture
-            GL.EnableVertexAttribArray(1);
-            GL.VertexAttribPointer(1, 2, VertexAttribPointerType.Float, false, 8 * sizeof(float), 6 * sizeof(float));
-
-            
-        }
         public override void OnRenderFrame(Shader shader , float time)
         {
       
