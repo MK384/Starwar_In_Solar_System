@@ -115,6 +115,8 @@ namespace ComputerGraphics.GraphObjects
             GL.BindBuffer(BufferTarget.ArrayBuffer, VertexBufferObject);
             GL.BufferData(BufferTarget.ArrayBuffer, _vertices.Length * sizeof(float), _vertices, BufferUsageHint.StaticDraw);
             
+            
+            //    Attib0          Attib1        Attib2
             //    Vertex          Normal       Texture
             // (Vx , Vy, Vz) , (Nx , Ny, Nz) , (u , v)
             
