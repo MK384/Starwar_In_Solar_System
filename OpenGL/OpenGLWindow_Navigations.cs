@@ -17,21 +17,27 @@ using OpenTK.Windowing.GraphicsLibraryFramework;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
+using System.Numerics;
 using System.Reflection;
 using System.Text;
 using System.Windows.Input;
 using ComputerGraphics.GraphObjects;
 using Boolean = System.Boolean;
+using MouseButton = OpenTK.Windowing.GraphicsLibraryFramework.MouseButton;
 using MouseWheelEventArgs = OpenTK.Windowing.Common.MouseWheelEventArgs;
+using Vector3 = OpenTK.Mathematics.Vector3;
 
 
 namespace ComputerGraphics
 {
     public partial class OpenGLWindow : GameWindow
     {
-     
 
-        protected float cameraSpeed = 100f;
+        private const float SPEED_DEFAULT = 100f;
+        private const float MIN_DIST = 10f; // The minimal distance that the the camera can approach from the object volume 
+
+        protected float cameraSpeed = SPEED_DEFAULT;
         protected float zoomFactor = 3.0f;
         protected float sensitivity = 0.2f;
         
@@ -91,15 +97,92 @@ namespace ComputerGraphics
             if (KeyboardState.IsKeyDown(Keys.Escape))
                 Close();
             else
+            {
+                MouseNavigation(args);
                 _navigationFunction[GetNavigation()](args);
+            }
             
-            _camera.Yaw += MouseState.Delta.X * sensitivity;
-            _camera.Pitch -= MouseState.Delta.Y * sensitivity;
             
         }
         
+        
         /***********************************************************
-         *             Navigations Functions Goes Here             *
+         *                     MOUSE NAVIGATION                    *
+         ***********************************************************/            
+
+        public virtual void MouseNavigation(FrameEventArgs args)
+        {
+            
+            _camera.Yaw += MouseState.Delta.X * sensitivity;
+            _camera.Pitch -= MouseState.Delta.Y * sensitivity;
+
+            if (MouseState.IsButtonDown(MouseButton.Left))
+            {
+                //TODO: add feature to fire laser with left Click 
+
+                cameraSpeed = MouseState.WasButtonDown(MouseButton.Left) ? 
+                    MathHelper.Clamp(cameraSpeed + 20f, SPEED_DEFAULT, SPEED_DEFAULT * 5) : SPEED_DEFAULT;
+
+                // checks for collision
+                if (!IsCollided(_graphObjects, _camera))
+                {
+                    _camera.Position += _camera.Front * cameraSpeed * (float)args.Time;
+                }
+
+            }
+            
+            else if (MouseState.IsButtonDown(MouseButton.Right))
+            {
+
+                //TODO: add feature to fire missile with right Click 
+
+                cameraSpeed = MouseState.WasButtonDown(MouseButton.Right)
+                    ? MathHelper.Clamp(cameraSpeed + 20f, SPEED_DEFAULT, SPEED_DEFAULT * 5) : SPEED_DEFAULT;
+
+                // checks for collision
+                if (!IsCollided(_graphObjects, _camera,false))
+                {
+                    _camera.Position -= _camera.Front * cameraSpeed * (float)args.Time;
+                }
+            }
+        }
+        
+        /***********************************************************
+         *                 3D Collision Detection                  *
+         ***********************************************************/
+
+        protected virtual bool IsCollided(List<GraphObject> objs, Camera camera, bool forwardMove = true)
+        {
+
+            var minDistance = float.MaxValue;
+            var nearObjRadius = float.MaxValue;
+            var nearObjCentroid = new Vector3(float.MaxValue);
+            
+            foreach (var obj in objs)
+            {
+                 var centroid = obj.model.ExtractTranslation(); // assume the centroid is in the origin for local model 
+                 var distance = Vector3.Distance(centroid, camera.Position);
+                 
+                 if (distance > minDistance) continue;
+                 minDistance = distance;
+                 nearObjCentroid = centroid;
+                 nearObjRadius = obj._scale;
+            }
+            
+            var theta = Vector3.Dot(Vector3.Normalize(nearObjCentroid - _camera.Position), 
+                forwardMove?_camera.Front: -_camera.Front);
+            var thetaCut = Math.Cos(Math.Asin(nearObjRadius / minDistance)) ;
+                
+                
+            var isNearObj = minDistance < nearObjRadius + MIN_DIST;
+            var isTowardObj = theta >= thetaCut;
+                
+            return isNearObj && isTowardObj;
+        }
+        
+        
+        /***********************************************************
+         *             KeyBoard Navigations Functions              *
          ***********************************************************/
         public virtual void MoveUp(FrameEventArgs args)
         {
@@ -146,6 +229,7 @@ namespace ComputerGraphics
             }
         }
 
+
         protected override void OnMouseWheel(MouseWheelEventArgs e)
         {
             base.OnMouseWheel(e);
@@ -168,18 +252,6 @@ namespace ComputerGraphics
         private void NoNavigation(FrameEventArgs args)
         {
             
-        }
-
-        private Boolean canCameraMove()
-        {
-            Boolean decision = true;
-
-            // _graphObjects
-            foreach (var obj in _graphObjects)
-            {
-                
-            }
-            return decision;
         }
     }
 }
