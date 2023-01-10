@@ -176,6 +176,12 @@ namespace ComputerGraphics
             
             objShader.SetVector3("light.position", new Vector3(0.0f, 0.0f, 0.0f));
             
+            // for testing the FlashLight
+            // objShader.SetVector3("light.position", _camera.Position);
+            // objShader.SetVector3("light.direction",_camera.Front);
+            // objShader.SetFloat("light.cutOff", (float)Math.Cos(MathHelper.DegreesToRadians(12.5)));
+            // objShader.SetFloat("light.outerCutOff", (float)Math.Cos(MathHelper.DegreesToRadians(17.5)));
+            
             // light strength
             objShader.SetVector3("light.ambient", ambientColor);
             objShader.SetVector3("light.diffuse", diffuseColor);
