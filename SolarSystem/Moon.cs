@@ -29,12 +29,21 @@ namespace ComputerGraphics.GraphObjects
         }
         public override void OnRenderFrame(Shader shader , float time)
         {
-            //TODO: Fix the moon orbit rotation
-
+            
             GL.BindVertexArray(VertexArrayObject);
             shader.Use();
             _texture.Use();
+            
+            UpdateModel(time);
+            shader.SetMatrix4("model", model);
+            shader.SetMaterial(_material);
+            
+            GL.DrawArrays(PrimitiveType.Triangles, 0, _vertices.Length/8);
+            
+        }
 
+        protected override void UpdateModel(float time)
+        {
             var trans = _worldReferencePoint;
             var planetTrans = _planet.model.ExtractTranslation();
             
@@ -44,18 +53,8 @@ namespace ComputerGraphics.GraphObjects
             trans.X = (-trans.Z * (float)Math.Cos(MathHelper.DegreesToRadians(-time * _orbitSpeed)) + planetTrans.X);
             trans.Z = (-trans.Z * (float)Math.Sin(MathHelper.DegreesToRadians(-time * _orbitSpeed)) + planetTrans.Z);
             model *= Matrix4.CreateTranslation(trans);
-
-            shader.SetMatrix4("model", model);
-            
-            shader.SetFloat("material.ambientStrength", _material.X);
-            shader.SetFloat("material.diffuseStrength", _material.Y);
-            shader.SetFloat("material.specularStrength", _material.Z);
-            shader.SetFloat("material.shininess", _material.W);
-
-            GL.DrawArrays(PrimitiveType.Triangles, 0, _vertices.Length/8);
-            
         }
-        
+
         protected override void ImportStandardShapeData()
         {
             _vertices = new SphereFactory().GetVertices();

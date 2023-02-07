@@ -70,7 +70,6 @@ namespace ComputerGraphics.GraphObjects
             isLumin = true;
             
             ImportStandardShapeData();
-            UpdateModel();
 
         }
         public GraphObject(Vector3 refpoint,float scale , bool isLumin)
@@ -84,16 +83,14 @@ namespace ComputerGraphics.GraphObjects
             _scale = scale;
             
             ImportStandardShapeData();
-            UpdateModel();
 
         }
-        private void UpdateModel()
+        protected virtual void UpdateModel(float arg)
         {
             
             model   = Matrix4.CreateScale(_scale);
             model  *= Matrix4.CreateTranslation(_worldReferencePoint) ;
-             
-             
+            
         }
 
         public void setTexture(string path)

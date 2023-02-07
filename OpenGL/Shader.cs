@@ -144,5 +144,13 @@ namespace ComputerGraphics
             GL.UseProgram(Handle);
             GL.Uniform3(_uniformLocations[name], data);
         }
+
+        public void SetMaterial(Vector4 material)
+        {
+            SetFloat("material.ambientStrength", material.X);
+            SetFloat("material.diffuseStrength", material.Y);
+            SetFloat("material.specularStrength", material.Z);
+            SetFloat("material.shininess", material.W);
+        }
     }
 }

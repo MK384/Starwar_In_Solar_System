@@ -15,6 +15,7 @@ namespace ComputerGraphics.GraphObjects
 
         public override void OnRenderFrame(Shader shader, float time)
         {
+            base.UpdateModel(0.0f);
             base.OnRenderFrame(shader , time);
             GL.DrawArrays(PrimitiveType.Triangles, 0, _vertices.Length/8);
             GL.BindVertexArray(0); // set the binded vertex array to null

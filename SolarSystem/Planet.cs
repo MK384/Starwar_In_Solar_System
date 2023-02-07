@@ -57,23 +57,9 @@ namespace ComputerGraphics.GraphObjects
             GL.BindVertexArray(VertexArrayObject);
              shader.Use(); // Calling the shader -> Gl.useProgram(Handler);
             _texture.Use();
-
-            var trans = _worldReferencePoint;
-            
-            model = Matrix4.Identity;
-            model *= Matrix4.CreateRotationY(MathHelper.DegreesToRadians(time * _rotaionSpeed * 50.0f));
-            model *= Matrix4.CreateScale(_scale);
-            trans.X = -trans.Z * (float)Math.Cos(MathHelper.DegreesToRadians(time * _orbitSpeed));
-            trans.Z = -trans.Z * (float)Math.Sin(MathHelper.DegreesToRadians(time * _orbitSpeed));
-            model *= Matrix4.CreateTranslation(trans);
-
+            UpdateModel(time);
             shader.SetMatrix4("model",  model );
-            
-            //TODO : make a function to set the material components in the shader.
-            shader.SetFloat("material.ambientStrength", _material.X);
-            shader.SetFloat("material.diffuseStrength", _material.Y);
-            shader.SetFloat("material.specularStrength", _material.Z);
-            shader.SetFloat("material.shininess", _material.W);
+            shader.SetMaterial(_material);
             
             GL.DrawArrays(PrimitiveType.Triangles, 0, _vertices.Length/8);
 
@@ -83,7 +69,19 @@ namespace ComputerGraphics.GraphObjects
             }
 
         }
-        
+
+        protected override void UpdateModel(float arg)
+        {
+            var trans = _worldReferencePoint;
+            model = Matrix4.Identity;
+            model *= Matrix4.CreateRotationY(MathHelper.DegreesToRadians(arg * _rotaionSpeed * 50.0f));
+            model *= Matrix4.CreateScale(_scale);
+            trans.X = -trans.Z * (float)Math.Cos(MathHelper.DegreesToRadians(arg * _orbitSpeed));
+            trans.Z = -trans.Z * (float)Math.Sin(MathHelper.DegreesToRadians(arg * _orbitSpeed));
+            model *= Matrix4.CreateTranslation(trans);
+            
+        }
+
         protected override void ImportStandardShapeData()
         {
             
