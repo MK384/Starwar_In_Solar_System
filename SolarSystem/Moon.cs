@@ -16,8 +16,6 @@ namespace ComputerGraphics.GraphObjects
     
     public class Moon : GraphObject
     {
-        public Stopwatch _timer { set; get; }
-        
         public float _rotaionSpeed { get; set; }
         public float _orbitSpeed { get; set; }
         public Planet _planet;
@@ -27,6 +25,7 @@ namespace ComputerGraphics.GraphObjects
         public Moon(float radius , Vector3 position , string texture):base(position,radius,false )
         {
             setTexture(texture);
+            OnLoadObject();
         }
         public override void OnRenderFrame(Shader shader , float time)
         {
@@ -37,12 +36,13 @@ namespace ComputerGraphics.GraphObjects
             _texture.Use();
 
             var trans = _worldReferencePoint;
+            var planetTrans = _planet.model.ExtractTranslation();
             
-            var model = Matrix4.Identity;
+            model = Matrix4.Identity;
             model *= Matrix4.CreateRotationY(MathHelper.DegreesToRadians(time * _rotaionSpeed * 50.0f));
             model *= Matrix4.CreateScale(_scale);
-            trans.X = (-trans.Z * (float)Math.Cos(MathHelper.DegreesToRadians(-time * _orbitSpeed)) + _planet._worldReferencePoint.X);
-            trans.Z = (-trans.Z * (float)Math.Sin(MathHelper.DegreesToRadians(-time * _orbitSpeed)) + _planet._worldReferencePoint.Z);
+            trans.X = (-trans.Z * (float)Math.Cos(MathHelper.DegreesToRadians(-time * _orbitSpeed)) + planetTrans.X);
+            trans.Z = (-trans.Z * (float)Math.Sin(MathHelper.DegreesToRadians(-time * _orbitSpeed)) + planetTrans.Z);
             model *= Matrix4.CreateTranslation(trans);
 
             shader.SetMatrix4("model", model);
@@ -59,7 +59,7 @@ namespace ComputerGraphics.GraphObjects
         protected override void ImportStandardShapeData()
         {
             _vertices = new SphereFactory().GetVertices();
-            base.ImportStandardShapeData();
+
         }
     }
 }

@@ -47,15 +47,23 @@ namespace ComputerGraphics
            using( OpenGLWindow ogl = new OpenGLWindow(GameWindowSettings.Default ,nws))
             {
                 ogl.AddGraph(new Sun(109.0f));
-                ogl.AddGraph(new Planet(Planet.Planets.Mercury, 40f, new Vector3(0,0,-300), "resources\\Earth_nightmap.jpg")
+                Planet Earth = new Planet(Planet.Planets.Earth, 40f, new Vector3(0, 0, -700),
+                    "resources\\Earth_nightmap.jpg")
                 {
-            
-             
+
+
                     _material = new Vector4(1f, 7f, .7f, 0.1f),
                     _rotaionSpeed = 1f,
-                    _orbitSpeed = -1f
-            
+                    _orbitSpeed = -1f,
+                };
+                Earth.AddMoon(new Moon(10, new Vector3(0, 0, -70f), "resources\\Moon1.jpg")
+                {
+                    _rotaionSpeed = 3f,
+                    _orbitSpeed = -2,
+                    _material = new Vector4(1f, 7f, .7f, 0.1f)
+
                 });
+                ogl.AddGraph(Earth);
                 ogl.Run();
             }
         }

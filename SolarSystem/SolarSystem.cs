@@ -97,7 +97,6 @@ namespace ComputerGraphics
                 _orbitSpeed = 30f
 
             };
-            earth._moons.Add(earthmoon);
             AddGraph(earth);
             AddGraph(new Planet(Planet.Planets.Mars, 5.3f, _planetspositions[3].Xyz, "resources\\Mars.jpg")
             {

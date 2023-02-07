@@ -34,7 +34,7 @@ namespace ComputerGraphics.GraphObjects
         public float _rotaionSpeed { get; set; }
         public float _orbitSpeed { get; set; } 
         
-        public List<Moon> _moons { get; set; }
+        private List<Moon> _moons { get; set; }
         public Vector4 _material { get; set; }
         
         public Planet( Planets name,float raduis, Vector3 position, String texture ): base(position , raduis , false)
@@ -42,6 +42,12 @@ namespace ComputerGraphics.GraphObjects
             planetName = name;
             setTexture(texture);
             _moons = new List<Moon>();
+        }
+
+        public void AddMoon(Moon moon)
+        {
+            moon._planet = this;
+            _moons.Add(moon);
         }
         
         public override void OnRenderFrame(Shader shader , float time)
@@ -63,6 +69,7 @@ namespace ComputerGraphics.GraphObjects
 
             shader.SetMatrix4("model",  model );
             
+            //TODO : make a function to set the material components in the shader.
             shader.SetFloat("material.ambientStrength", _material.X);
             shader.SetFloat("material.diffuseStrength", _material.Y);
             shader.SetFloat("material.specularStrength", _material.Z);
